@@ -22,6 +22,8 @@ var stringifiableValues = [
   {"a":[],"c": {}, "b": true}
 ];
 
+var arrayWithValidElements = stringifiableValues;
+
 // used for stringifyJSON spec
 // hint: JSON does not allow you to stringify functions or
 // undefined values, so you should skip those key/value pairs.
@@ -33,6 +35,8 @@ var nonStringifiableValues = [
     'a-string': 'sup?'
   }
 ];
+
+var objectWithInvalidAttributes = nonStringifiableValues;
 
 var extraCreditStrings = [
   // escaping
