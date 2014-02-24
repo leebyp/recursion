@@ -18,6 +18,9 @@ var stringifyJSON = function (obj) {
 			return individualResult;
 		}
 		else if (typeof target === 'object'){
+			if (target === null){
+				return 'null';
+			}
 			var individualResult = '{';
 			var individualArray = [];
 			for (var x in target){
