@@ -9,7 +9,7 @@ var getElementsByClassName = function (className) {
 
 	function addToResult(node){
 		if (node === document.body){
-			var resultArray = [];
+//			var resultArray = [];
 			for (var i=1; i<node.childNodes.length; i++){
 				addToResult(node.childNodes[i]);
 			}
@@ -31,6 +31,7 @@ var getElementsByClassName = function (className) {
 		}
 	}
 
+	var resultArray = [];
 	return addToResult(document.body);
 
 };
