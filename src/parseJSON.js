@@ -102,7 +102,7 @@ var parseJSON = function (json) {
         else if (currentCharacter >= 0 && currentCharacter <=9){
             return parseNumber();
         }
-        else {
+        else if (currentCharacter==='t' || currentCharacter==='f' || currentCharacter==='n'){
             return parseWord();
         }
     }
