@@ -19,19 +19,28 @@ var parseJSON = function (json) {
 
     function parseWord(){
         if (currentCharacter === 't'){
-            if (nextCharacter() === 'r'){
-                if (nextCharacter() === 'u'){
-                    if (nextCharacter() === 'e'){
-                      return true;
+            nextCharacter();
+            if (currentCharacter === 'r'){
+                nextCharacter();
+                if (currentCharacter === 'u'){
+                    nextCharacter();
+                    if (currentCharacter === 'e'){
+                        nextCharacter();    
+                        return true;
                     }
                 }
             }
         }
         else if (currentCharacter === 'f'){
-            if (nextCharacter() === 'a'){
-                if (nextCharacter() === 'l'){
-                    if (nextCharacter() === 's'){
-                        if (nextCharacter() === 'e'){
+            nextCharacter();
+            if (currentCharacter === 'a'){
+                nextCharacter();
+                if (currentCharacter === 'l'){
+                    nextCharacter();
+                    if (currentCharacter === 's'){
+                        nextCharacter();
+                        if (currentCharacter === 'e'){
+                            nextCharacter();
                             return false;
                         }
                     }
@@ -39,10 +48,14 @@ var parseJSON = function (json) {
             }
         }
         else if (currentCharacter === 'n'){
-            if (nextCharacter() === 'u'){
-                if (nextCharacter() === 'l'){
-                    if (nextCharacter() === 'l'){
-                        return true;
+            nextCharacter();
+            if (currentCharacter === 'u'){
+                nextCharacter();
+                if (currentCharacter === 'l'){
+                    nextCharacter();
+                    if (currentCharacter === 'l'){
+                        nextCharacter();
+                        return null;
                     }
                 }
             }
@@ -52,7 +65,8 @@ var parseJSON = function (json) {
     function parseNumber(){
         var number, numberstring = '';
         while((currentCharacter>='0' && currentCharacter<='9')||(currentCharacter==='.')||(currentCharacter==='e')||(currentCharacter==='+')||(currentCharacter==='-')){
-            string += nextCharacter();
+            numberstring += currentCharacter;
+            nextCharacter();
         }
         number = Number(numberstring);
         return number;
@@ -60,9 +74,12 @@ var parseJSON = function (json) {
 
     function parseString(){
         var string = '';
-        while(nextCharacter()!=='"'){
+        nextCharacter();
+        while(currentCharacter!=='"'){
             string += currentCharacter;
+            nextCharacter();
         }
+        nextCharacter();
         return string;
     }
 
@@ -90,6 +107,7 @@ var parseJSON = function (json) {
     }
 
     function value(){
+        skipWhitespace();
         if (currentCharacter === '{'){
             return parseObject();
         }
@@ -107,7 +125,7 @@ var parseJSON = function (json) {
         }
     }
 
-    var currentCharacter, currentIndex, text;
+    var currentCharacter = '', currentIndex, text;
     text = json;
     currentIndex = 0;
     nextCharacter();
