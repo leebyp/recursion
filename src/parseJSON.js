@@ -135,7 +135,7 @@ var parseJSON = function (json) {
         else if (currentCharacter === '"'){
             return parseString();
         }
-        else if (currentCharacter >= 0 && currentCharacter <=9){
+        else if ((currentCharacter>='0' && currentCharacter<='9')||(currentCharacter==='.')||(currentCharacter==='e')||(currentCharacter==='+')||(currentCharacter==='-')) {
             return parseNumber();
         }
         else if (currentCharacter==='t' || currentCharacter==='f' || currentCharacter==='n'){
