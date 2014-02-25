@@ -41,9 +41,9 @@ var parseJSON = function (json) {
             }
         }
         else if (currentCharacter === 'n'){
-            if (nextCharacter() === 'r'){
-                if (nextCharacter() === 'u'){
-                    if (nextCharacter() === 'e'){
+            if (nextCharacter() === 'u'){
+                if (nextCharacter() === 'l'){
+                    if (nextCharacter() === 'l'){
                         return true;
                     }
                 }
@@ -89,6 +89,24 @@ var parseJSON = function (json) {
             }
         }
         return object;
+    }
+
+    function value(){
+        if (currentCharacter === '{'){
+            return parseObject();
+        }
+        else if (currentCharacter === '['){
+            return parseArray();
+        }
+        else if (currentCharacter === '"'){
+            return parseString();
+        }
+        else if (currentCharacter >= 0 && currentCharacter <=9){
+            return parseNumber();
+        }
+        else {
+            return parseWord();
+        }
     }
 
 
