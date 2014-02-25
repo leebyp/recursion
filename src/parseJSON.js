@@ -51,7 +51,16 @@ var parseJSON = function (json) {
         }
     }
 
-    
+    function parseNumber(){
+        var number, numberstring = '';
+        while ((currentCharacter>='0' && currentCharacter<='9')||(currentCharacter==='.')||(currentCharacter==='e')||(currentCharacter==='+')||(currentCharacter==='-')){
+            string += nextCharacter();
+        }
+        number = Number(numberstring);
+        return number;
+    }
+
+
 
 };
 
