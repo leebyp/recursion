@@ -86,6 +86,7 @@ var parseJSON = function (json) {
     function parseArray(){
         var array = [];
         nextCharacter();
+        skipWhitespace();
         if (currentCharacter === ']') {
             nextCharacter();
             return array;
@@ -103,15 +104,24 @@ var parseJSON = function (json) {
 
     function parseObject(){
         var key, object = {};
-        while(currentCharacter!=='}'){
-            while(currentCharacter!==','){
-                while(currentCharacter!==':'){
-                    key = string()
-                }
-                object[key] = value();
-            }
+        nextCharacter();
+        skipWhitespace();
+        if (currentCharacter === '}'){
+            nextCharacter();
+            return object;
         }
-        return object;
+        while(currentCharacter){
+            key = value();
+            skipWhitespace();
+            nextCharacter();
+            object[key] = value();
+            skipWhitespace();
+            if (currentCharacter === '}'){
+                nextCharacter();
+                return object;
+            }
+            nextCharacter();
+        }
     }
 
     function value(){
