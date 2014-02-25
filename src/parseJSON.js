@@ -5,8 +5,6 @@
 var parseJSON = function (json) {
   // your code goes here
 
-    var currentCharacter, currentIndex, text;
-
     function nextCharacter(){
         currentCharacter = text.charAt(currentIndex);
         currentIndex += 1;
@@ -109,8 +107,13 @@ var parseJSON = function (json) {
         }
     }
 
+    var currentCharacter, currentIndex, text;
+    text = json;
+    currentIndex = 0;
+    nextCharacter();
+    var result = value();
 
-
+    return result;
 };
 
 
