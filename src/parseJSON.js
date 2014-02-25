@@ -4,6 +4,55 @@
 // but you're not, so you'll write it from scratch:
 var parseJSON = function (json) {
   // your code goes here
+
+    var currentCharacter, currentIndex, text;
+
+    function nextCharacter(){
+        currentCharacter = text.charAt(currentIndex);
+        currentIndex += 1;
+        return currentCharacter;
+    }
+
+    function skipWhitespace(){
+        while (currentCharacter === ' '){
+            nextCharacter();
+        }
+    }
+
+    function parseWord(){
+        if (currentCharacter === 't'){
+            if (nextCharacter() === 'r'){
+                if (nextCharacter() === 'u'){
+                    if (nextCharacter() === 'e'){
+                      return true;
+                    }
+                }
+            }
+        }
+        else if (currentCharacter === 'f'){
+            if (nextCharacter() === 'a'){
+                if (nextCharacter() === 'l'){
+                    if (nextCharacter() === 's'){
+                        if (nextCharacter() === 'e'){
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        else if (currentCharacter === 'n'){
+            if (nextCharacter() === 'r'){
+                if (nextCharacter() === 'u'){
+                    if (nextCharacter() === 'e'){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    
+
 };
 
 
@@ -22,7 +71,7 @@ general format:
     encounter true/false/null => return true/false/null if next characters fit
 
 functions needed:
-    nextCharacter (advance in text and check against specialchars)
+    nextCharacter (advance in text to check against specialchars)
     skipWhitespace (not useful unless in string)
     parseString
     parseArray
