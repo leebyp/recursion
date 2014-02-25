@@ -78,7 +78,18 @@ var parseJSON = function (json) {
         return array;
     }
 
-    
+    function parseObject(){
+        var key, object = {};
+        while(currentCharacter!=='}'){
+            while(currentCharacter!==','){
+                while(currentCharacter!==':'){
+                    key = string()
+                }
+                object[key] = value();
+            }
+        }
+        return object;
+    }
 
 
 
