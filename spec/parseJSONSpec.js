@@ -5,6 +5,7 @@ describe("parseJSON", function(){
     stringifiableValues.forEach(function(obj){
       var result = parseJSON(JSON.stringify(obj));
       var equality = _.isEqual(result, obj); // why can't we use `===` here?
+      //not use '===' since keys in objects will have "" removed when parsed
       expect(equality).toBeTruthy();
     });
 
