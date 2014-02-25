@@ -60,6 +60,14 @@ var parseJSON = function (json) {
         return number;
     }
 
+    function parseString(){
+        var string = '';
+        while(nextCharacter()!=='"'){
+            string += currentCharacter;
+        }
+        return string;
+    }
+
 
 
 };
