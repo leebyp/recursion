@@ -53,7 +53,7 @@ var parseJSON = function (json) {
 
     function parseNumber(){
         var number, numberstring = '';
-        while ((currentCharacter>='0' && currentCharacter<='9')||(currentCharacter==='.')||(currentCharacter==='e')||(currentCharacter==='+')||(currentCharacter==='-')){
+        while((currentCharacter>='0' && currentCharacter<='9')||(currentCharacter==='.')||(currentCharacter==='e')||(currentCharacter==='+')||(currentCharacter==='-')){
             string += nextCharacter();
         }
         number = Number(numberstring);
@@ -67,6 +67,18 @@ var parseJSON = function (json) {
         }
         return string;
     }
+
+    function parseArray(){
+        var array = [];
+        while(currentCharacter!==']'){
+            while(currentCharacter!==','){
+                array.push(value());
+            }
+        }
+        return array;
+    }
+
+    
 
 
 
