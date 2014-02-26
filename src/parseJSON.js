@@ -171,7 +171,10 @@ var parseJSON = function (json) {
     currentIndex = 0;
     nextCharacter();
     var result = value();
-
+    skipWhitespace();
+    if (currentCharacter){
+        error('Unexpected "' + currentCharacter + '"');
+    }
     return result;
 };
 
