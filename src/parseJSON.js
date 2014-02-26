@@ -8,7 +8,7 @@ var parseJSON = function (json) {
         throw {
             name:       'SyntaxError',
             message:    errormessage,
-            atIndex:         currentIndex,
+            atIndex:    currentIndex,
             text:       text
         };
     }
@@ -72,12 +72,21 @@ var parseJSON = function (json) {
         var string = '';
         nextCharacter('"');
         while(currentCharacter){
-            while(currentCharacter!=='"'){
+            if (currentCharacter === '"'){
+                nextCharacter('"');
+                return string;
+            }
+            else if (currentCharacter === '\\'){
+                nextCharacter();
+                if (escapeCharacters[currentCharacter]){
+                    string += escapeCharacters[currentCharacter];
+                    nextCharacter();
+                }
+            }
+            else {
                 string += currentCharacter;
                 nextCharacter();
             }
-            nextCharacter('"');
-            return string;
         }
         error('Bad string');
     }
@@ -148,6 +157,16 @@ var parseJSON = function (json) {
     }
 
     var currentCharacter = '', currentIndex, text;
+    var escapeCharacters = {
+        '"' : '"',
+        '\\': '\\',
+        '/': '/',
+        b: '\b',
+        f: '\f',
+        n: '\n',
+        r: '\r',
+        t: '\t'
+    };
     text = json;
     currentIndex = 0;
     nextCharacter();
