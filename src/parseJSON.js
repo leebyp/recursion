@@ -4,8 +4,19 @@
 // but you're not, so you'll write it from scratch:
 var parseJSON = function (json) {
   // your code goes here
+    function error(errormessage){
+        throw {
+            name:       'SyntaxError',
+            message:    errormessage,
+            atIndex:         currentIndex,
+            text:       text
+        };
+    }
 
-    function nextCharacter(){
+    function nextCharacter(expectedChar){
+        if (expectedChar && currentCharacter !== expectedChar) {
+            error('Expected "' + expectedChar + '" instead of "' + currentCharacter + '"');
+        }
         currentCharacter = text.charAt(currentIndex);
         currentIndex += 1;
         return currentCharacter;
@@ -19,46 +30,26 @@ var parseJSON = function (json) {
 
     function parseWord(){
         if (currentCharacter === 't'){
-            nextCharacter();
-            if (currentCharacter === 'r'){
-                nextCharacter();
-                if (currentCharacter === 'u'){
-                    nextCharacter();
-                    if (currentCharacter === 'e'){
-                        nextCharacter();    
-                        return true;
-                    }
-                }
-            }
+            nextCharacter('t');
+            nextCharacter('r');
+            nextCharacter('u');
+            nextCharacter('e');    
+            return true;
         }
         else if (currentCharacter === 'f'){
-            nextCharacter();
-            if (currentCharacter === 'a'){
-                nextCharacter();
-                if (currentCharacter === 'l'){
-                    nextCharacter();
-                    if (currentCharacter === 's'){
-                        nextCharacter();
-                        if (currentCharacter === 'e'){
-                            nextCharacter();
-                            return false;
-                        }
-                    }
-                }
-            }
+            nextCharacter('f');
+            nextCharacter('a');
+            nextCharacter('l');
+            nextCharacter('s');
+            nextCharacter('e');
+            return false;
         }
         else if (currentCharacter === 'n'){
-            nextCharacter();
-            if (currentCharacter === 'u'){
-                nextCharacter();
-                if (currentCharacter === 'l'){
-                    nextCharacter();
-                    if (currentCharacter === 'l'){
-                        nextCharacter();
-                        return null;
-                    }
-                }
-            }
+            nextCharacter('n');
+            nextCharacter('u');
+            nextCharacter('l');
+            nextCharacter('l');
+            return null;
         }
     }
 
@@ -69,37 +60,46 @@ var parseJSON = function (json) {
             nextCharacter();
         }
         number = Number(numberstring);
-        return number;
+        if (isNaN(number)){
+            error("Bad number")
+        }
+        else {
+            return number;
+        }
     }
 
     function parseString(){
         var string = '';
-        nextCharacter();
-        while(currentCharacter!=='"'){
-            string += currentCharacter;
-            nextCharacter();
+        nextCharacter('"');
+        while(currentCharacter){
+            while(currentCharacter!=='"'){
+                string += currentCharacter;
+                nextCharacter();
+            }
+            nextCharacter('"');
+            return string;
         }
-        nextCharacter();
-        return string;
+        error('Bad string');
     }
 
     function parseArray(){
         var array = [];
-        nextCharacter();
+        nextCharacter('[');
         skipWhitespace();
         if (currentCharacter === ']') {
-            nextCharacter();
+            nextCharacter(']');
             return array;
         }
         while(currentCharacter){
             array.push(value());
             skipWhitespace();
             if (currentCharacter === ']'){
-                nextCharacter();
+                nextCharacter(']');
                 return array;
             }
-            nextCharacter();
+            nextCharacter(',');
         }
+        error('Bad array');
     }
 
     function parseObject(){
@@ -122,6 +122,7 @@ var parseJSON = function (json) {
             }
             nextCharacter();
         }
+        error('Bad object');
     }
 
     function value(){
@@ -140,6 +141,9 @@ var parseJSON = function (json) {
         }
         else if (currentCharacter==='t' || currentCharacter==='f' || currentCharacter==='n'){
             return parseWord();
+        }
+        else {
+            error('Unexpected "' + currentCharacter + '"');
         }
     }
 
