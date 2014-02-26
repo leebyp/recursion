@@ -14,7 +14,7 @@ var parseJSON = function (json) {
     }
 
     function nextCharacter(expectedChar){
-        if (expectedChar && currentCharacter !== expectedChar) {
+        if (expectedChar && (currentCharacter !== expectedChar)) {
             error('Expected "' + expectedChar + '" instead of "' + currentCharacter + '"');
         }
         currentCharacter = text.charAt(currentIndex);
@@ -23,7 +23,7 @@ var parseJSON = function (json) {
     }
 
     function skipWhitespace(){
-        while (currentCharacter <= ' '){
+        while (currentCharacter && currentCharacter <= ' '){
             nextCharacter();
         }
     }
