@@ -23,7 +23,7 @@ var parseJSON = function (json) {
     }
 
     function skipWhitespace(){
-        while (currentCharacter === ' '){
+        while (currentCharacter <= ' '){
             nextCharacter();
         }
     }
