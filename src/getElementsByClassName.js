@@ -35,3 +35,27 @@ var getElementsByClassName = function (className) {
 	return addToResult(document.body);
 
 };
+
+
+function hasClass (className, node) {
+   var classArray = node.className.split(/\s+/);
+   return classArray.indexOf(className) !== -1 ? true : false;
+}
+ 
+
+var getElementsByClassName = function (className, node) {
+  node = node || document.body;
+ 
+  var results = [];
+ 
+  if (hasClass(className, node)){
+    results.push(node);
+  }
+  if (node.children) {
+    for (var i = 0; i < node.children.length; i++) {
+      results = results.concat( getElementsByClassName(className, node.children[i]) );
+    }
+  }
+
+  return results;
+};
